@@ -131,5 +131,7 @@ void ff_h264dsp_init_mips(H264DSPContext *c, const int bit_depth,
                           const int chroma_format_idc);
 void ff_h264dsp_init_loongarch(H264DSPContext *c, const int bit_depth,
                                const int chroma_format_idc);
+void ff_h264dsp_init_webassembly(H264DSPContext *c, const int bit_depth,
+                          const int chroma_format_idc);
 
 #endif /* AVCODEC_H264DSP_H */

@@ -26,7 +26,11 @@
 #ifndef AVCODEC_VP8_H
 #define AVCODEC_VP8_H
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "libavutil/mem_internal.h"
 #include "libavutil/thread.h"

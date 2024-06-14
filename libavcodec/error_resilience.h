@@ -20,7 +20,11 @@
 #define AVCODEC_ERROR_RESILIENCE_H
 
 #include <stdint.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "avcodec.h"
 #include "me_cmp.h"

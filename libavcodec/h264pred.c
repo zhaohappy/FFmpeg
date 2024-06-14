@@ -598,5 +598,7 @@ av_cold void ff_h264_pred_init(H264PredContext *h, int codec_id,
     ff_h264_pred_init_mips(h, codec_id, bit_depth, chroma_format_idc);
 #elif ARCH_LOONGARCH
     ff_h264_pred_init_loongarch(h, codec_id, bit_depth, chroma_format_idc);
+#elif ARCH_WEBASSEMBLY
+    ff_h264_pred_init_webassembly(h, codec_id, bit_depth, chroma_format_idc);
 #endif
 }

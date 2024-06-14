@@ -27,7 +27,11 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "attributes.h"
 #include "cpu.h"

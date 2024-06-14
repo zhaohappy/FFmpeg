@@ -30,7 +30,11 @@
  * V4L2_PIX_FMT_* and AV_PIX_FMT_*
  */
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "libavutil/avassert.h"
 #include "libavutil/avstring.h"

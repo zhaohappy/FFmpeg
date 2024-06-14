@@ -24,7 +24,11 @@
 #ifndef AVCODEC_V4L2_BUFFERS_H
 #define AVCODEC_V4L2_BUFFERS_H
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include <stddef.h>
 #include <linux/videodev2.h>
 

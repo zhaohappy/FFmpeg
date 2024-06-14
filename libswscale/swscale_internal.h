@@ -21,7 +21,11 @@
 #ifndef SWSCALE_SWSCALE_INTERNAL_H
 #define SWSCALE_SWSCALE_INTERNAL_H
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "config.h"
 

@@ -19,7 +19,11 @@
 #ifndef AVUTIL_BUFFER_INTERNAL_H
 #define AVUTIL_BUFFER_INTERNAL_H
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include <stdint.h>
 
 #include "buffer.h"

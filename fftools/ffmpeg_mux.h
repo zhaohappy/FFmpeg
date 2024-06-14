@@ -21,7 +21,11 @@
 #ifndef FFTOOLS_FFMPEG_MUX_H
 #define FFTOOLS_FFMPEG_MUX_H
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include <stdint.h>
 
 #include "ffmpeg_sched.h"

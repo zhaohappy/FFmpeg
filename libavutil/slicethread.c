@@ -16,7 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include "cpu.h"
 #include "internal.h"
 #include "slicethread.h"
@@ -26,7 +30,7 @@
 
 #define MAX_AUTO_THREADS 16
 
-#if HAVE_PTHREADS || HAVE_W32THREADS || HAVE_OS2THREADS
+#if HAVE_PTHREADS || HAVE_W32THREADS || HAVE_OS2THREADS || HAVE_WASMTHREADS
 
 typedef struct WorkerContext {
     AVSliceThread   *ctx;
@@ -74,7 +78,7 @@ static void *attribute_align_arg thread_worker(void *v)
     AVSliceThread *ctx = w->ctx;
 
     pthread_mutex_lock(&w->mutex);
-    pthread_cond_signal(&w->cond);
+    // pthread_cond_signal(&w->cond);
 
     while (1) {
         w->done = 1;
@@ -157,8 +161,9 @@ int avpriv_slicethread_create(AVSliceThread **pctx, void *priv,
             return AVERROR(ret);
         }
 
-        while (!w->done)
-            pthread_cond_wait(&w->cond, &w->mutex);
+         w->done = 1;
+        // while (!w->done)
+        //     pthread_cond_wait(&w->cond, &w->mutex);
         pthread_mutex_unlock(&w->mutex);
     }
 

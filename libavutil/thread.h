@@ -32,6 +32,59 @@
 
 #include "error.h"
 
+#if ARCH_WEBASSEMBLY || HAVE_WASMTHREADS
+
+#include <wasmpthread.h>
+
+#define AVMutex wasm_pthread_mutex_t
+#define AV_MUTEX_INITIALIZER WASM_PTHREAD_MUTEX_INITIALIZER
+
+#define ff_mutex_init    wasm_pthread_mutex_init
+#define ff_mutex_lock    wasm_pthread_mutex_lock
+#define ff_mutex_unlock  wasm_pthread_mutex_unlock
+#define ff_mutex_destroy wasm_pthread_mutex_destroy
+
+#define AVCond wasm_pthread_cond_t
+
+#define ff_cond_init      wasm_pthread_cond_init
+#define ff_cond_destroy   wasm_pthread_cond_destroy
+#define ff_cond_signal    wasm_pthread_cond_signal
+#define ff_cond_broadcast wasm_pthread_cond_broadcast
+#define ff_cond_wait      wasm_pthread_cond_wait
+#define ff_cond_timedwait wasm_pthread_cond_timedwait
+
+#define AVOnce wasm_pthread_once_t
+#define AV_ONCE_INIT WASM_PTHREAD_ONCE_INIT
+
+#define ff_thread_once(control, routine) wasm_pthread_once(control, routine)
+
+#define pthread_mutex_t        wasm_pthread_mutex_t
+#define pthread_mutex_attr     wasm_pthread_mutex_attr
+
+#define pthread_cond_t         wasm_pthread_cond_t
+#define pthread_condattr_t     wasm_pthread_condattr_t
+
+#define pthread_attr_t         wasm_pthread_attr_t
+#define pthread_t              wasm_pthread_t
+#define pthread_once_t         wasm_pthread_once_t
+
+#define pthread_create         wasm_pthread_create
+#define pthread_join           wasm_pthread_join
+#define pthread_exit           wasm_pthread_exit
+#define pthread_mutex_init     wasm_pthread_mutex_init
+#define pthread_mutex_destroy  wasm_pthread_mutex_destroy
+#define pthread_mutex_lock     wasm_pthread_mutex_lock
+#define pthread_mutex_unlock   wasm_pthread_mutex_unlock
+#define pthread_cond_init      wasm_pthread_cond_init
+#define pthread_cond_destroy   wasm_pthread_cond_destroy
+#define pthread_cond_signal    wasm_pthread_cond_signal
+#define pthread_cond_broadcast wasm_pthread_cond_broadcast
+#define pthread_cond_wait      wasm_pthread_cond_wait
+#define pthread_cond_timedwait wasm_pthread_cond_timedwait
+#define pthread_once           wasm_pthread_once
+
+#else
+
 #if HAVE_PTHREADS || HAVE_W32THREADS || HAVE_OS2THREADS
 
 #if HAVE_PTHREADS
@@ -210,6 +263,8 @@ static inline int ff_thread_once(char *control, void (*routine)(void))
     }
     return 0;
 }
+
+#endif
 
 #endif
 
