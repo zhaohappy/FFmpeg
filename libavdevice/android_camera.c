@@ -22,7 +22,11 @@
 
 #include <errno.h>
 #include <pthread.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include <stdbool.h>
 #include <stdint.h>
 #include <unistd.h>

@@ -27,7 +27,11 @@
 
 #include <errno.h>
 #include <limits.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>

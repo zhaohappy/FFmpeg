@@ -31,7 +31,11 @@
 #include <interface/mmal/util/mmal_util_params.h>
 #include <interface/mmal/util/mmal_default_components.h>
 #include <interface/mmal/vc/mmal_vc_api.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "avcodec.h"
 #include "codec_internal.h"

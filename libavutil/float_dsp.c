@@ -162,6 +162,8 @@ av_cold AVFloatDSPContext *avpriv_float_dsp_alloc(int bit_exact)
     ff_float_dsp_init_x86(fdsp);
 #elif ARCH_MIPS
     ff_float_dsp_init_mips(fdsp);
+#elif ARCH_WEBASSEMBLY
+    ff_float_dsp_init_webassembly(fdsp);
 #endif
     return fdsp;
 }

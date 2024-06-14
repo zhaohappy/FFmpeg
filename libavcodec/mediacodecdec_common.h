@@ -24,7 +24,11 @@
 #define AVCODEC_MEDIACODECDEC_COMMON_H
 
 #include <stdint.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include <stdbool.h>
 #include <sys/types.h>
 

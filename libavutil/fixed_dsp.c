@@ -166,6 +166,8 @@ AVFixedDSPContext * avpriv_alloc_fixed_dsp(int bit_exact)
     ff_fixed_dsp_init_riscv(fdsp);
 #elif ARCH_X86
     ff_fixed_dsp_init_x86(fdsp);
+#elif ARCH_WEBASSEMBLY
+    ff_fixed_dsp_init_webassembly(fdsp);
 #endif
 
     return fdsp;

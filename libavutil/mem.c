@@ -31,7 +31,11 @@
 #include <limits.h>
 #include <stdint.h>
 #include <stdlib.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include <string.h>
 #if HAVE_MALLOC_H
 #include <malloc.h>

@@ -16,7 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <stdatomic.h>
 #include <stdint.h>
 #include <string.h>
 
@@ -26,6 +25,12 @@
 #include "libavutil/avassert.h"
 #include "libavutil/macros.h"
 #include "libavutil/mem.h"
+
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
+#include <stdatomic.h>
+#endif
 
 #ifndef REFSTRUCT_CHECKED
 #ifndef ASSERT_LEVEL

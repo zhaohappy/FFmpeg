@@ -23,7 +23,11 @@
 #ifndef AVCODEC_HEVCDEC_H
 #define AVCODEC_HEVCDEC_H
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "libavutil/buffer.h"
 #include "libavutil/mem_internal.h"
