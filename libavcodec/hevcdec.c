@@ -3163,6 +3163,13 @@ static int decode_nal_units(HEVCContext *s, const uint8_t *buf, int length)
     s->eos = 0;
     s->overlap = 0;
 
+    if (s->nal_length_size == 4) {
+        if (length > 9 && AV_RB32(buf) == 1 && AV_RB32(buf+6) > (unsigned)length) {
+            s->is_nalff = 0;
+        }else if(length > 3 && AV_RB32(buf) > 1 && AV_RB32(buf) <= (unsigned)length)
+            s->is_nalff = 1;
+    }
+
     /* split the input packet into NAL units, so we know the upper bound on the
      * number of slices in the frame */
     ret = ff_h2645_packet_split(&s->pkt, buf, length, s->avctx, s->is_nalff,
