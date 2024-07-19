@@ -181,7 +181,6 @@ void av_executor_free(AVExecutor **executor)
     int thread_count;
     if (!executor || !*executor)
         return;
-    executor_free(*executor, 1, 1);
     thread_count = (*executor)->thread_count;
     executor_free(*executor, thread_count, thread_count);
     *executor = NULL;
