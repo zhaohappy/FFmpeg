@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "context.h": "c",
+    "pixfmt.h": "c",
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript",
+    "*.asm": "wat",
+    "errno.h": "c"
+  }
+}
