@@ -339,6 +339,10 @@ static int encode_frame(AVCodecContext* avc_context, AVPacket *pkt,
         return AVERROR_EXTERNAL;
     }
 
+    if (!o_packet.bytes) {
+        return 0;
+    }
+
     /* Copy ogg_packet content out to buffer */
     if ((ret = ff_get_encode_buffer(avc_context, pkt, o_packet.bytes, 0)) < 0)
         return ret;

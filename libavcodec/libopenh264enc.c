@@ -378,7 +378,7 @@ static int svc_encode_frame(AVCodecContext *avctx, AVPacket *avpkt,
     sp.iPicHeight = avctx->height;
 
     if (frame->pict_type == AV_PICTURE_TYPE_I) {
-        (*s->encoder)->ForceIntraFrame(s->encoder, true);
+        (*s->encoder)->ForceIntraFrame(s->encoder, true, -1);
     }
 
     encoded = (*s->encoder)->EncodeFrame(s->encoder, &sp, &fbi);
