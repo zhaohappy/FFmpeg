@@ -147,7 +147,7 @@ static void ff_vector_fmul_add_webassembly(float *dst, const float *src0, const 
         wasm_v128_store(
             &dst[i],
             wasm_f32x4_add(
-                wasm_f32x4_add(
+                wasm_f32x4_mul(
                     wasm_v128_load(&src0[i]),
                     wasm_v128_load(&src1[i])
                 ),
@@ -215,6 +215,7 @@ void ff_float_dsp_init_webassembly(AVFloatDSPContext *fdsp)
     fdsp->vector_dmul = ff_vector_dmul_webassembly;
     fdsp->vector_fmac_scalar = ff_vector_fmac_scalar_webassembly;
     fdsp->vector_fmul_scalar = ff_vector_fmul_scalar_webassembly;
+
     fdsp->vector_dmac_scalar = ff_vector_dmac_scalar_webassembly;
     fdsp->vector_dmul_scalar = ff_vector_dmul_scalar_webassembly;
     fdsp->vector_fmul_add = ff_vector_fmul_add_webassembly;

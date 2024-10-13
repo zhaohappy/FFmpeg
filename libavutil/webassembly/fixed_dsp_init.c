@@ -24,11 +24,21 @@
 #include <wasm_simd128.h>
 
 static void ff_butterflies_fixed_webassembly(int *v1, int *v2, int len) {
-    for (int i = 0; i < len; i += 4) {
+
+    int length = (len >> 1) << 1;
+    int i;
+    for (i = 0; i < length; i += 4) {
         v128_t a = wasm_v128_load(&v1[i]);
         v128_t b = wasm_v128_load(&v2[i]);
         wasm_v128_store(&v1[i], wasm_i32x4_add(a, b));
         wasm_v128_store(&v2[i], wasm_i32x4_sub(a, b));
+    }
+
+    for (i = length; i < len; i++) {
+        int a = v1[i];
+        int b = v2[i];
+        v1[i] = a + b;
+        v2[i] = a - b;
     }
 }
 
