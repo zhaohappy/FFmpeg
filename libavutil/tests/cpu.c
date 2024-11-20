@@ -94,6 +94,8 @@ static const struct {
     { AV_CPU_FLAG_RVV_F32,   "zve32f"     },
     { AV_CPU_FLAG_RVV_I64,   "zve64x"     },
     { AV_CPU_FLAG_RVV_F64,   "zve64d"     },
+#elif ARCH_WASM
+    { AV_CPU_FLAG_SIMD128,   "simd128"    },
 #endif
     { 0 }
 };

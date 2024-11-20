@@ -91,6 +91,9 @@
 #define AV_CPU_FLAG_RVB_BASIC    (1 << 7) ///< Basic bit-manipulations
 #define AV_CPU_FLAG_RVB_ADDR     (1 << 8) ///< Address bit-manipulations
 
+// WASM extensions
+#define AV_CPU_FLAG_SIMD128      (1 << 0)
+
 /**
  * Return the flags which specify extensions supported by the CPU.
  * The returned value is affected by av_force_cpu_flags() if that was used
