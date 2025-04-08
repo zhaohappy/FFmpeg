@@ -21,7 +21,11 @@
 
 #define VK_NO_PROTOTYPES
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "thread.h"
 #include "pixdesc.h"

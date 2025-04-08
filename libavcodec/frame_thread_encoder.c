@@ -18,8 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include <stdatomic.h>
-
 #include "frame_thread_encoder.h"
 
 #include "libavutil/avassert.h"
@@ -31,6 +29,12 @@
 #include "encode.h"
 #include "internal.h"
 #include "pthread_internal.h"
+
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
+#include <stdatomic.h>
+#endif
 
 #define MAX_THREADS 64
 /* There can be as many as MAX_THREADS + 1 outstanding tasks.
