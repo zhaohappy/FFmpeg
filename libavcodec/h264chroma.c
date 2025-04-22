@@ -60,5 +60,7 @@ av_cold void ff_h264chroma_init(H264ChromaContext *c, int bit_depth)
     ff_h264chroma_init_loongarch(c, bit_depth);
 #elif ARCH_RISCV
     ff_h264chroma_init_riscv(c, bit_depth);
+#elif ARCH_WASM
+        ff_h264chroma_init_wasm(c, bit_depth);
 #endif
 }
