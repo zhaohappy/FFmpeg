@@ -154,6 +154,8 @@ static av_cold int libx265_encode_close(AVCodecContext *avctx)
     if (ctx->encoder)
         ctx->api->encoder_close(ctx->encoder);
 
+    ctx->api->cleanup();
+
     ff_dovi_ctx_unref(&ctx->dovi);
 
     return 0;

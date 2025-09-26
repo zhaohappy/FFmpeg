@@ -507,6 +507,8 @@ typedef struct AVFrame {
      */
     int format;
 
+    int32_t keyFrame;
+
     /**
      * Picture type of the frame.
      */
@@ -577,6 +579,10 @@ typedef struct AVFrame {
      * higher-layer timing information is not available.
      */
     int repeat_pict;
+
+    int32_t interlacedFrame;
+    int32_t topFieldFirst;
+    int32_t paletteHasChanged;
 
     /**
      * Sample rate of the audio data.
@@ -691,6 +697,8 @@ typedef struct AVFrame {
      */
     int64_t best_effort_timestamp;
 
+    int64_t pkt_pos;
+
     /**
      * metadata.
      * - encoding: Set by user.
@@ -710,6 +718,8 @@ typedef struct AVFrame {
 #define FF_DECODE_ERROR_MISSING_REFERENCE   2
 #define FF_DECODE_ERROR_CONCEALMENT_ACTIVE  4
 #define FF_DECODE_ERROR_DECODE_SLICES       8
+
+    int32_t pkt_size;
 
     /**
      * For hwaccel-format frames, this should be a reference to the

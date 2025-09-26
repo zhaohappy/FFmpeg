@@ -34,7 +34,11 @@
  */
 
 #include <limits.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include "libavutil/thread.h"
 
 /**

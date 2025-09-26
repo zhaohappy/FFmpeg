@@ -115,7 +115,7 @@ static av_cold int libkvazaar_init(AVCodecContext *avctx)
         }
         av_dict_free(&dict);
     }
-
+    cfg->threads = avctx->thread_count;
     ctx->encoder = enc = api->encoder_open(cfg);
     if (!enc) {
         av_log(avctx, AV_LOG_ERROR, "Could not open kvazaar encoder.\n");

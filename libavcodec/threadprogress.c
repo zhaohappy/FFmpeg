@@ -19,7 +19,11 @@
  */
 
 #include <limits.h>
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "pthread_internal.h"
 #include "threadprogress.h"
