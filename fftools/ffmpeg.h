@@ -21,7 +21,11 @@
 
 #include "config.h"
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 #include <stdint.h>
 #include <stdio.h>
 #include <signal.h>

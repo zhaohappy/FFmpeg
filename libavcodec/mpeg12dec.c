@@ -60,6 +60,12 @@
 #include "profiles.h"
 #include "startcode.h"
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
+#include <stdatomic.h>
+#endif
+
 #define A53_MAX_CC_COUNT 2000
 
 enum Mpeg2ClosedCaptionsFormat {
@@ -1639,7 +1645,7 @@ static int slice_decode_thread(AVCodecContext *c, void *arg)
     int mb_y            = s->c.start_mb_y;
     const int field_pic = s->c.picture_structure != PICT_FRAME;
 
-    s->c.er.error_count = (3 * (s->c.end_mb_y - s->c.start_mb_y) * s->c.mb_width) >> field_pic;
+    atomic_store(&s->er.error_count, (3 * (s->end_mb_y - s->start_mb_y) * s->mb_width) >> field_pic);
 
     for (;;) {
         uint32_t start_code;
@@ -1648,8 +1654,8 @@ static int slice_decode_thread(AVCodecContext *c, void *arg)
         ret = mpeg_decode_slice(s, mb_y, &buf, end - buf);
         emms_c();
         ff_dlog(c, "ret:%d resync:%d/%d mb:%d/%d ts:%d/%d ec:%d\n",
-                ret, s->c.resync_mb_x, s->c.resync_mb_y, s->c.mb_x, s->c.mb_y,
-                s->c.start_mb_y, s->c.end_mb_y, s->c.er.error_count);
+                ret, s->resync_mb_x, s->resync_mb_y, s->mb_x, s->mb_y,
+                s->start_mb_y, s->end_mb_y, atomic_load(&s->er.error_count));
         if (ret < 0) {
             if (c->err_recognition & AV_EF_EXPLODE)
                 return ret;
@@ -2255,7 +2261,7 @@ static int decode_chunks(AVCodecContext *avctx, AVFrame *picture,
             }
             s2->pict_type = 0;
 
-            if (avctx->err_recognition & AV_EF_EXPLODE && s2->er.error_count)
+            if (avctx->err_recognition & AV_EF_EXPLODE && atomic_load(&s2->er.error_count))
                 return AVERROR_INVALIDDATA;
 
             return FFMAX(0, buf_ptr - buf);

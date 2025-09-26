@@ -22,7 +22,11 @@
  * @see doc/multithreading.txt
  */
 
+#if HAVE_WASMATOMIC
+#include <wasmatomic.h>
+#else
 #include <stdatomic.h>
+#endif
 
 #include "avcodec.h"
 #include "avcodec_internal.h"
